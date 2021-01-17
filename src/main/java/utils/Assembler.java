@@ -72,7 +72,6 @@ public class Assembler {
                 subsets[i] = mSets[i];
             }
         }
-//        Collections.shuffle(Arrays.asList(subsets));
         if (m != t && startFromFile == false) {
             count = 0;
             for (j = 0; j < mSetsCount; j++) {
