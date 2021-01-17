@@ -14,7 +14,7 @@ import static utils.Library.intersection;
 public class BruteForceFast {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3, b = 300;
+        int v = 27, k = 6, m = 4, t = 3, b = 86;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int i, j, count = 0;
@@ -27,9 +27,6 @@ public class BruteForceFast {
         Collections.shuffle(Arrays.asList(mSets));
         Random random = new Random();
         for (i = 0; i < mSetsCount; i++) {
-//            if (i % 1000 == 0) {
-//                System.out.println(i);
-//            }
             for (j = 0; j < kSetsCount; j++) {
                 intersections[i][j] = (byte) intersection(mSets[i], kSets[j]);
             }

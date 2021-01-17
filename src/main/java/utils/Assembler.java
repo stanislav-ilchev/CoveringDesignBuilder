@@ -7,22 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import static utils.TupleBuilder.buildTuples;
+import static utils.Library.buildCombinations;
+import static utils.Library.intersection;
 
 public class Assembler {
-
-    public static int intersection(int[] list1, int[] list2) {
-        int intersectionSize = 0;
-        for (int i = 0; i < list1.length; i++) {
-            for (int j = 0; j < list2.length; j++) {
-                if (list1[i] == list2[j]) {
-                    intersectionSize++;
-                    break;
-                }
-            }
-        }
-        return intersectionSize;
-    }
 
     public static boolean isEmpty(int[][] array) {
         for (int i = 0; i < array.length; i++) {
@@ -34,32 +22,32 @@ public class Assembler {
     }
 
     public static void main(String[] args) throws IOException {
-        int v = 27;
-        int k = 6;
-        int m = 4;
-        int t = 3;
-        boolean readFile = false;
+        int v = 27, k = 6, m = 4, t = 3;
+        boolean startFromFile = false;
         boolean useHeuristics = true;
         int sampleSize = 10000;
-        int[][] kTuples = buildTuples(v, k);
-        int[][] mTuples = buildTuples(v, m);
+        int[][] kSets = buildCombinations(v, k);
+        int[][] mSets = buildCombinations(v, m);
         int[][] result = new int[10000][k];
-        int kTuplesCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
-        int mTuplesCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
+        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
+        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
+        byte[][] intersections = new byte[mSetsCount][kSetsCount];
         int count = (int) CombinatoricsUtils.binomialCoefficient(k, m);
-        int nextSize, bestNextSize;
+        int nextSize, bestNextSize, randomNumber;
         Random random = new Random();
         int a, i, j, b, l, counter = 0, numberOfMatches;
         String line;
         int row = 0;
-        int[][] subsets = new int[mTuplesCount][];
-        for (i = 0; i < mTuplesCount; i++) {
-            subsets[i] = new int[m];
+        int[][] subsets = new int[mSetsCount][m];
+        for (i = 0; i < mSetsCount; i++) {
+            for (j = 0; j < kSetsCount; j++) {
+                intersections[i][j] = (byte) intersection(mSets[i], kSets[j]);
+            }
         }
-        if (readFile) {
-            mTuplesCount = 200;
-            subsets = new int[mTuplesCount][];
-            for (i = 0; i < mTuplesCount; i++) {
+        if (startFromFile) {
+            mSetsCount = 200;
+            subsets = new int[mSetsCount][];
+            for (i = 0; i < mSetsCount; i++) {
                 subsets[i] = new int[m];
             }
             BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
@@ -80,17 +68,15 @@ public class Assembler {
                 br.close();
             }
         } else {
-            for (i = 0; i < mTuplesCount; i++) {
-                for (j = 0; j < m; j++) {
-                    subsets[i][j] = mTuples[i][j];
-                }
+            for (i = 0; i < mSetsCount; i++) {
+                subsets[i] = mSets[i];
             }
         }
 //        Collections.shuffle(Arrays.asList(subsets));
-        if (m != t && readFile == false) {
+        if (m != t && startFromFile == false) {
             count = 0;
-            for (j = 0; j < mTuplesCount; j++) {
-                if (intersection(kTuples[0], subsets[j]) >= t) {
+            for (j = 0; j < mSetsCount; j++) {
+                if (intersection(kSets[0], subsets[j]) >= t) {
                     count++;
                 }
             }
@@ -98,22 +84,22 @@ public class Assembler {
 
         System.out.println(count);
         while (!isEmpty(subsets)) {
-            for (i = 0; i < kTuplesCount; i++) {
+            for (i = 0; i < kSetsCount; i++) {
                 numberOfMatches = 0;
-                for (j = 0; j < mTuplesCount; j++) {
-                    if (subsets[j] != null && intersection(kTuples[i], subsets[j]) >= t) {
+                for (j = 0; j < mSetsCount; j++) {
+                    if (subsets[j] != null && intersections[j][i] >= t) {
                         numberOfMatches++;
                     }
                 }
                 if (numberOfMatches >= count) {
                     for (b = 0; b < k; b++) {
-                        System.out.print(kTuples[i][b] + " ");
-                        result[counter][b] = kTuples[i][b];
+                        System.out.print(kSets[i][b] + " ");
+                        result[counter][b] = kSets[i][b];
                     }
                     counter++;
                     System.out.println();
-                    for (a = 0; a < mTuplesCount; a++) {
-                        if (subsets[a] != null && intersection(kTuples[i], subsets[a]) >= t) {
+                    for (a = 0; a < mSetsCount; a++) {
+                        if (subsets[a] != null && intersections[a][i] >= t) {
                             subsets[a] = null;
                         }
                     }
@@ -121,11 +107,12 @@ public class Assembler {
             }
             if (useHeuristics) {
                 bestNextSize = 0;
-                for (l = 0; l < kTuplesCount/*sampleSize*/; l++) {
-                    result[counter] = kTuples[l];//kTuples[random.nextInt(kTuplesCount)];
+                for (l = 0; l < /*kSetsCount*/sampleSize; l++) {
+                    randomNumber = random.nextInt(kSetsCount);
+                    result[counter] = /*kSets[l];*/kSets[randomNumber];
                     nextSize = 0;
-                    for (a = 0; a < mTuplesCount; a++) {
-                        if (subsets[a] != null && intersection(result[counter], subsets[a]) >= t) {
+                    for (a = 0; a < mSetsCount; a++) {
+                        if (subsets[a] != null && intersections[a][randomNumber] >= t) {
                             nextSize++;
                         }
                     }
