@@ -42,6 +42,6 @@ public class MatchCounter {
         }
 //        fileWriter.write("The number of " + t + "-tuples covered is " + numberOfCoveredTuples);
         fileWriter.close();
-        System.out.println("The number of " + t + "-tuples covered is " + numberOfCoveredTuples);
+        System.out.println("The number of " + t + "-tuples covered is " + numberOfCoveredTuples + " out of " + tSetsCount);
     }
 }

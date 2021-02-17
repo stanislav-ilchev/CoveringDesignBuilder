@@ -22,7 +22,7 @@ public class Assembler {
     }
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3;
+        int v = 22, k = 6, m = 3, t = 3;
         boolean startFromFile = false;
         boolean useHeuristics = true;
         int sampleSize = 10000;

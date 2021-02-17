@@ -11,7 +11,7 @@ import static utils.Library.readFromFile;
 public class NumberCounter {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, b = 86;
+        int v = 22, k = 6, b = 77;
         boolean startFromFile = true;
         int i, j, l;
         int possibleCombinations = (int) CombinatoricsUtils.binomialCoefficient(v, k);

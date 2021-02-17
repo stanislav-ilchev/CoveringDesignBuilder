@@ -13,7 +13,7 @@ import static java.lang.System.*;
 
 public class Library {
 
-    public static int v = 27, k = 6, m = 4, t = 3, b = 86;
+    public static int v = 27, k = 6, m = 4, t = 3, b = 85;
     public static int kSetsCount = (int) binomialCoefficient(v, k);
     public static int mSetsCount = (int) binomialCoefficient(v, m);
     public static int[][] kSets = buildCombinations(v, k);
@@ -55,6 +55,24 @@ public class Library {
             }
             out.println();
         }
+    }
+
+    public static void print(int[] array) {
+        int i;
+        for (i = 0; i < k; i++) {
+            out.print(array[i] + " ");
+        }
+        out.println();
+    }
+
+    public static boolean contains(int[] array, int element) {
+        int i;
+        for (i = 0; i < k; i++) {
+            if (array[i] == element) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isEmpty(int[][] array) {
@@ -103,6 +121,29 @@ public class Library {
                 lineArray = line.replaceAll(",", " ").replaceAll("\\s{2,}", " ").trim().split(" ");
                 for (i = 0; i < k; i++) {
                     subsets[row][i] = Integer.parseInt(lineArray[i]);
+                }
+                line = br.readLine();
+                row++;
+            }
+        } finally {
+            br.close();
+        }
+        return subsets;
+    }
+
+    public static int[] readFromFile2() throws IOException {
+        int i;
+        int[] subsets = new int[b];
+        String line;
+        String[] lineArray;
+        int row = 0;
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        try {
+            line = br.readLine();
+            while (line != null) {
+                line = line.replaceAll(",", " ").replaceAll("\\s{2,}", " ").trim();
+                for (i = 0; i < k; i++) {
+                    subsets[row] = Integer.parseInt(line);
                 }
                 line = br.readLine();
                 row++;

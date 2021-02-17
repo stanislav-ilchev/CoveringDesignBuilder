@@ -9,15 +9,15 @@ import static utils.Library.*;
 public class Checker {
 
     public static void main(String[] args) throws IOException {
-        int v = 49, k = 6, t = 3, b = 163;
-        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
+        int v = 27, m = 4, t = 3, b = 86;
+        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int i, j, numberOfMatches = 0;
-        int[][] kSets = buildCombinations(v, k);
+        int[][] mSets = buildCombinations(v, m);
         int[][] subsets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
         System.out.println("Checking if this set is a wheel that guarantees a " + t + "-match...");
-        for (i = 0; i < kSetsCount; i++) {
+        for (i = 0; i < mSetsCount; i++) {
             for (j = 0; j < b; j++) {
-                if (intersection(kSets[i], subsets[j]) >= t) {
+                if (intersection(mSets[i], subsets[j]) >= t) {
                     numberOfMatches++;
                     break;
                 }
@@ -26,7 +26,7 @@ public class Checker {
 //                System.out.println(Arrays.toString(kSets[i]));
 //            }
         }
-        if (numberOfMatches == kSetsCount) {
+        if (numberOfMatches == mSetsCount) {
             System.out.println("A " + t + "-match-guaranteed wheel was found!");
         } else {
             System.out.println("No " + t + "-match-guaranteed wheel was found!");

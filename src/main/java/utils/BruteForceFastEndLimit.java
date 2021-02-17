@@ -6,15 +6,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 
 import static utils.Library.buildCombinations;
 import static utils.Library.intersection;
 
-public class BruteForceFast {
+public class BruteForceFastEndLimit {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3, b = 86;
+        Date date = java.util.Calendar.getInstance().getTime();
+        System.out.println(date);
+        int v = 27, k = 6, m = 4, t = 3, b = 10;
+        int endLimit = b * 435;
+        int numCovered;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int i, j, count = 0;
@@ -31,34 +36,43 @@ public class BruteForceFast {
                 intersections[i][j] = (byte) intersection(mSets[i], kSets[j]);
             }
         }
-        test:
-        while (kSetsCount > 0) {
+        while (true) {
+            numCovered = 0;
+//            count++;
+////            System.out.println(count);
+//            if (count == 100000) {
+//                System.out.println(System.currentTimeMillis() - start);
+//                start = System.currentTimeMillis();
+//                count = 0;
+//            }
             for (i = 0; i < b; i++) {
                 wheel[i] = random.nextInt(kSetsCount);
             }
-            test2:
             for (i = 0; i < mSetsCount; i++) {
                 for (j = 0; j < b; j++) {
                     if (intersections[i][wheel[j]] >= t) {
-                        continue test2;
+                        numCovered++;
+                        break;
                     }
                 }
-                continue test;
             }
-            System.out.println(b);
-            FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
-            fileWriter.flush();
-            for (i = 0; i < b; i++) {
-                for (j = 0; j < k; j++) {
-//                    System.out.print(kSets[wheel[i]][j] + " ");
-                    fileWriter.append(kSets[wheel[i]][j] + " ");
-                }
+            if (numCovered >= endLimit) {
+                System.out.println("A " + t + "-guaranteed wheel was found with a size = " + b);
+                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                fileWriter.flush();
+//            fileWriter.write("A " + t + "-guaranteed wheel was found with a size = " + b + "\n");
+                for (i = 0; i < b; i++) {
+                    for (j = 0; j < k; j++) {
+//                    System.out.print(wheel[i] + " ");
+                        fileWriter.append(kSets[wheel[i]][j] + " ");
+                    }
 //                System.out.println();
-                fileWriter.append("\n");
-            }
-            fileWriter.close();
-            return;
+                    fileWriter.append("\n");
+                }
+                fileWriter.close();
+                return;
 //            b--;
+            }
         }
     }
 }

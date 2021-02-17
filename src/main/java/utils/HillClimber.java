@@ -71,7 +71,7 @@ public class HillClimber {
                         fileWriter.append("\n");
                     }
                     fileWriter.close();
-                    return;
+//                    return;
                 } else {
                     System.out.println(mSetsCount - maxNumberOfMatches);
                     FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
@@ -121,18 +121,13 @@ public class HillClimber {
                 }
             }
             numberOfMatches = 0;
-            boolean end = false;
-            loop:
-            while (!end) {
+            randomNumber = random.nextInt(subsetSize);
+            randomNumber2 = random.nextInt(k);
+            randomNumber3 = random.nextInt(v);
+            while (contains(wheel2[randomNumber], randomNumber3)) {
                 randomNumber = random.nextInt(subsetSize);
                 randomNumber2 = random.nextInt(k);
                 randomNumber3 = random.nextInt(v);
-                for (i = 0; i < k; i++) {
-                    if (wheel2[randomNumber][i] == randomNumber3) {
-                        continue loop;
-                    }
-                    end = true;
-                }
             }
             used[randomNumber][randomNumber2][randomNumber3] = 1;
             oldNumber = (byte) wheel2[randomNumber][randomNumber2];
@@ -146,6 +141,9 @@ public class HillClimber {
                 }
             }
             if (numberOfMatches >= maxNumberOfMatches) {
+                if (numberOfMatches == maxNumberOfMatches) {
+                    print(wheel2[randomNumber]);
+                }
                 count = 0;
                 maxNumberOfMatches = numberOfMatches;
                 for (i = 0; i < subsetSize; i++) {

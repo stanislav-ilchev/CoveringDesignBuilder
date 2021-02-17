@@ -10,11 +10,11 @@ import static utils.TupleBuilder.buildTuples;
 public class WheelBuilder {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3, b = 1000;
+        int v = 49, k = 6, m = 6, t = 5, b = 1000000;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
 //        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int i, j, count = 0;
-        int[][] kSets = buildTuples(v, k);
+        int[][] kSets = buildCombinations(v, k);
 //        int[][] mSets = buildCombinations(v, m);
         int[][] wheel = new int[b][k];
         while (!isEmpty(kSets)) {
