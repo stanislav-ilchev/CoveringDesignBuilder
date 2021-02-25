@@ -5,7 +5,6 @@ import org.apache.commons.math3.util.CombinatoricsUtils;
 import java.io.IOException;
 
 import static utils.Library.*;
-import static utils.TupleBuilder.buildTuples;
 
 public class WheelBuilder {
 

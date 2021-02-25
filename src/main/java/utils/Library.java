@@ -13,7 +13,7 @@ import static java.lang.System.*;
 
 public class Library {
 
-    public static int v = 27, k = 6, m = 4, t = 3, b = 85;
+    public static int v = 27, k = 6, m = 4, t = 3, b = 86;
     public static int kSetsCount = (int) binomialCoefficient(v, k);
     public static int mSetsCount = (int) binomialCoefficient(v, m);
     public static int[][] kSets = buildCombinations(v, k);

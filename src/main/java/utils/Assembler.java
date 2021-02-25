@@ -22,13 +22,13 @@ public class Assembler {
     }
 
     public static void main(String[] args) throws IOException {
-        int v = 22, k = 6, m = 3, t = 3;
+        int v = 27, k = 6, m = 4, t = 3;
         boolean startFromFile = false;
         boolean useHeuristics = true;
         int sampleSize = 10000;
         int[][] kSets = buildCombinations(v, k);
         int[][] mSets = buildCombinations(v, m);
-        int[][] result = new int[10000][k];
+        int[][] result = new int[1000][k];
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         byte[][] intersections = new byte[mSetsCount][kSetsCount];

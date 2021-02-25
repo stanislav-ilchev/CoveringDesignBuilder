@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 
 import static utils.Library.buildCombinations;
@@ -14,6 +15,8 @@ import static utils.Library.intersection;
 public class BruteForceFast {
 
     public static void main(String[] args) throws IOException {
+        Date date = java.util.Calendar.getInstance().getTime();
+        System.out.println(date);
         int v = 27, k = 6, m = 4, t = 3, b = 86;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
@@ -31,6 +34,8 @@ public class BruteForceFast {
                 intersections[i][j] = (byte) intersection(mSets[i], kSets[j]);
             }
         }
+        date = java.util.Calendar.getInstance().getTime();
+        System.out.println(date);
         test:
         while (kSetsCount > 0) {
             for (i = 0; i < b; i++) {

@@ -8,7 +8,7 @@ public class Rename {
 
     public static void main(String[] args) throws IOException {
         int[][] kSets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
-        rename(kSets, -22);
+        rename(kSets, -27);
         print(kSets);
     }
 }

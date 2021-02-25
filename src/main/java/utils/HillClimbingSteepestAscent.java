@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import static utils.TupleBuilder.buildTuples;
+import static utils.Library.buildCombinations;
 
 public class HillClimbingSteepestAscent {
 
@@ -40,8 +40,8 @@ public class HillClimbingSteepestAscent {
         int elementsToChange = 1, perturbation = 0;
         int bestRow = 0;
         int i, j, l, o, n, count = 0, rowNumber = 0, positionInRow = 0, bestRowNumber = 0, bestPositionInRow = 0;
-        int[][] kTuples = buildTuples(v, k);
-        int[][] mTuples = buildTuples(v, m);
+        int[][] kTuples = buildCombinations(v, k);
+        int[][] mTuples = buildCombinations(v, m);
         int[][] subsets = new int[b][k];
         int[][] subsets2 = new int[subsetSize][k];
         BufferedReader br;

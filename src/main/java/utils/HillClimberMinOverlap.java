@@ -28,10 +28,10 @@ public class HillClimberMinOverlap {
     public static void main(String[] args) throws IOException {
         int v = 27;
         int k = 6;
-        int b = 14;
+        int b = 86;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int subsetSize = b;
-        boolean startFromFile = false;
+        boolean startFromFile = true;
         int zeroIntersection = 0, oneIntersection = 0, twoIntersection = 0, threeIntersection = 0, fourIntersection = 0, fiveIntersection = 0, sixIntersection = 0;
         byte g, randomNumber3;
         int overlappingNumber, initialOverlappingNumber = 0, minOverlappingNumber, intersectionSize;
