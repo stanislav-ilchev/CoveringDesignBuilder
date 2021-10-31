@@ -16,7 +16,7 @@ public class CheckerFast {
         int i, j;
         int[][] mSets = buildCombinations(v, m);
         Collections.shuffle(Arrays.asList(mSets));
-        int[][] subsets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
+        int[][] subsets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
         System.out.println("Checking if this set is a wheel that guarantees a " + t + "-match...");
         test2:
         for (i = 0; i < mSetsCount; i++) {

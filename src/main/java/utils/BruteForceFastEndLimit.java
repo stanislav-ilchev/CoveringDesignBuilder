@@ -58,7 +58,7 @@ public class BruteForceFastEndLimit {
             }
             if (numCovered >= endLimit) {
                 System.out.println("A " + t + "-guaranteed wheel was found with a size = " + b);
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
 //            fileWriter.write("A " + t + "-guaranteed wheel was found with a size = " + b + "\n");
                 for (i = 0; i < b; i++) {

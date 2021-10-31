@@ -4,8 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficient;
 import static org.apache.commons.math3.util.CombinatoricsUtils.combinationsIterator;
@@ -13,7 +12,7 @@ import static java.lang.System.*;
 
 public class Library {
 
-    public static int v = 27, k = 6, m = 4, t = 3, b = 86;
+    public static int v = 27, k = 6, m = 3, t = 3, b = 1292;
     public static int kSetsCount = (int) binomialCoefficient(v, k);
     public static int mSetsCount = (int) binomialCoefficient(v, m);
     public static int[][] kSets = buildCombinations(v, k);
@@ -57,9 +56,25 @@ public class Library {
         }
     }
 
+//    public static void print(int[] array) {
+//        int i;
+//        for (i = 0; i < k; i++) {
+//            out.print(array[i] + " ");
+//        }
+//        out.println();
+//    }
+
+    public static void printMSet(int[] array) {
+        int i;
+        for (i = 0; i < m; i++) {
+            out.print(array[i] + " ");
+        }
+        out.println();
+    }
+
     public static void print(int[] array) {
         int i;
-        for (i = 0; i < k; i++) {
+        for (i = 0; i < array.length; i++) {
             out.print(array[i] + " ");
         }
         out.println();
@@ -83,6 +98,16 @@ public class Library {
             }
         }
         return true;
+    }
+
+    public static int getNonEmptyElementsCount(int[][] array) {
+        int i, count = 0;
+        for (i = 0; i < array.length; i++) {
+            if (array[i] != null) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public static int[][] readFromFile(String fileName) throws IOException {
@@ -114,7 +139,7 @@ public class Library {
         String line;
         String[] lineArray;
         int row = 0;
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
         try {
             line = br.readLine();
             while (line != null) {
@@ -124,6 +149,35 @@ public class Library {
                 }
                 line = br.readLine();
                 row++;
+                if (row >= b) {
+                    return subsets;
+                }
+            }
+        } finally {
+            br.close();
+        }
+        return subsets;
+    }
+
+    public static int[][] readFromFileNLines(int numLines) throws IOException {
+        int i;
+        int[][] subsets = new int[numLines][m];
+        String line;
+        String[] lineArray;
+        int row = 0;
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
+        try {
+            line = br.readLine();
+            while (line != null) {
+                lineArray = line.replaceAll(",", " ").replaceAll("\\s{2,}", " ").trim().split(" ");
+                for (i = 0; i < m; i++) {
+                    subsets[row][i] = Integer.parseInt(lineArray[i]);
+                }
+                line = br.readLine();
+                row++;
+                if (row >= numLines) {
+                    return subsets;
+                }
             }
         } finally {
             br.close();
@@ -137,7 +191,7 @@ public class Library {
         String line;
         String[] lineArray;
         int row = 0;
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
         try {
             line = br.readLine();
             while (line != null) {
@@ -154,9 +208,9 @@ public class Library {
         return subsets;
     }
 
-    public static void writeToFile(String fileName, int[][] array) throws IOException {
+    public static void writeToFile(int[][] array) throws IOException {
         int i, j;
-        FileWriter fileWriter = new FileWriter(fileName);
+        FileWriter fileWriter = new FileWriter("C:/Users/Stanislav Ilchev/Desktop/result.txt");
         fileWriter.flush();
         for (i = 0; i < b; i++) {
             for (j = 0; j < k; j++) {
@@ -167,28 +221,28 @@ public class Library {
         fileWriter.close();
     }
 
-    public static String generateRandomNeighbor(int[][] array) {
-        int i;
-        int row = 0, column = 0, newNumber = 0, oldNumber;
-        boolean end = false;
+    public static int[][] generateRandomNeighbor(int[][] array) {
+        int i, j, row, column, newNumber;
+        row = random.nextInt(b);
+        column = random.nextInt(k);
+        newNumber = random.nextInt(v);
+        int[][] arrayCopy = new int[b][k];
+        for (i = 0; i < b; i++) {
+            for (j = 0; j < k; j++) {
+                arrayCopy[i][j] = array[i][j];
+            }
+        }
         loop:
-        while (!end) {
+        while (contains(arrayCopy[row], newNumber)) {
             row = random.nextInt(b);
             column = random.nextInt(k);
             newNumber = random.nextInt(v);
-            for (i = 0; i < k; i++) {
-                if (array[row][i] == newNumber) {
-                    continue loop;
-                }
-                end = true;
-            }
         }
-        oldNumber = array[row][column];
-        array[row][column] = newNumber;
-        return row + "," + column + "," + oldNumber;
+        arrayCopy[row][column] = newNumber;
+        return arrayCopy;
     }
 
-    public static int calculateMatches(int[][] array) {
+    public static int calculateCost(int[][] array) {
         int i, j;
         int numberOfMatches = 0;
         for (i = 0; i < mSets.length; i++) {
@@ -207,6 +261,17 @@ public class Library {
         for (i = 0; i < b; i++) {
             for (j = 0; j < k; j++) {
                 array[i][j] += change;
+            }
+        }
+    }
+
+    public static void renameFromTo(int[][] array, int from, int to) {
+        int i, j;
+        for (i = 0; i < b; i++) {
+            for (j = 0; j < k; j++) {
+                if (array[i][j] == from) {
+                    array[i][j] = to;
+                }
             }
         }
     }
@@ -264,6 +329,39 @@ public class Library {
             }
         }
         return true;
+    }
+
+    public static int[] getMostCommonNumbers(int[][] array, int count) {
+        int i, j, l, index = 0;
+        int[] mostCommonNumbers = new int[count];
+        int[] frequencies = new int[v];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                continue;
+            }
+            for (j = 0; j < m; j++) {
+                for (l = 0; l < v; l++) {
+                    if (array[i][j] == l) {
+                        frequencies[l] += 1;
+                        break;
+                    }
+                }
+            }
+        }
+        for (i = 0; i < v; i++) {
+            map.put(i, frequencies[i]);
+        }
+        LinkedHashMap<Integer, Integer> reverseSortedMap = new LinkedHashMap<>();
+        map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+        for (i = 0; i < count; i++) {
+            mostCommonNumbers[index] = (int) reverseSortedMap.keySet().toArray()[i];
+            index++;
+        }
+        return mostCommonNumbers;
     }
 
 }

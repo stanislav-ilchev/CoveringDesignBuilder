@@ -37,7 +37,7 @@ public class LaJollaGreedyChecker {
             subsets[i] = new int[3];
         }
         if (readFile) {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {

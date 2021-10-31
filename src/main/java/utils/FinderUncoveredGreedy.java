@@ -83,7 +83,7 @@ public class FinderUncoveredGreedy {
         for (i = 0; i < 1; i++) {
             placeHolder[i] = new int[6];
         }
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
         try {
             line = br.readLine();
             while (line != null) {
@@ -181,7 +181,7 @@ public class FinderUncoveredGreedy {
                 maxNumberOfMatches = bestNumberOfMatches;
                 if (bestNumberOfMatches == possibleCombinations) {
                     System.out.println("A " + numbersToMatch + "-match-guaranteed wheel was found!");
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     fileWriter.write("A " + numbersToMatch + "-match-guaranteed wheel was found!" + "\n");
                     for (j = 0; j < subsetSize; j++) {
@@ -193,7 +193,7 @@ public class FinderUncoveredGreedy {
                 } else {
                     System.out.println("No " + numbersToMatch + "-match-guaranteed wheel was found!");
                     System.out.println("Number of matches is " + bestNumberOfMatches);
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     fileWriter.write("No " + numbersToMatch + "-match-guaranteed wheel was found!" + "\n" + "Number of matches is " + bestNumberOfMatches + "\n");
                     for (j = 0; j < subsetSize; j++) {

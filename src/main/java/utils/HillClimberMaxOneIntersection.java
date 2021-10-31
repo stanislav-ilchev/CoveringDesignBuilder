@@ -77,7 +77,7 @@ public class HillClimberMaxOneIntersection {
                 subsets[i] = sixTuples[random.nextInt(possibleSixTuples)];
             }
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {
@@ -130,7 +130,7 @@ public class HillClimberMaxOneIntersection {
 //                numberOfImprovements++;
                 biggestOneIntersection = maxOneIntersection;
                 System.out.println(biggestOneIntersection);
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 for (j = 0; j < subsetSize; j++) {
 //                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);

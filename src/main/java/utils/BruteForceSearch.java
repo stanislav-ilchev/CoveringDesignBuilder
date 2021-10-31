@@ -1,25 +1,18 @@
 package utils;
 
-import org.apache.commons.math3.util.CombinatoricsUtils;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-import static utils.Library.buildCombinations;
+import static utils.Library.*;
 
 public class BruteForceSearch {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3, b = 86;
-        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
-        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int intersectionSize;
         int i, j, n, l, count = 0;
-        int[][] kSets = buildCombinations(v, k);
-        int[][] mSets = buildCombinations(v, m);
         int[][] wheel = new int[b][k];
         long start = System.currentTimeMillis();
         Collections.shuffle(Arrays.asList(kSets));
@@ -29,7 +22,7 @@ public class BruteForceSearch {
         while (true) {
             count++;
 //            System.out.println(count);
-            if (count == 30000) {
+            if (count == 20000) {
                 System.out.println(System.currentTimeMillis() - start);
                 start = System.currentTimeMillis();
                 count = 0;
@@ -56,7 +49,7 @@ public class BruteForceSearch {
                 continue test;
             }
             System.out.println("A " + t + "-guaranteed wheel was found with a size = " + b);
-            FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+            FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
             fileWriter.flush();
             fileWriter.write("A " + t + "-guaranteed wheel was found with a size = " + b + "\n");
             for (i = 0; i < b; i++) {

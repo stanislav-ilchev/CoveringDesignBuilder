@@ -51,7 +51,7 @@ public class RedundancyChecker {
                 }
             }
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {

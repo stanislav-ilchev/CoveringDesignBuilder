@@ -5,13 +5,11 @@ import org.apache.commons.math3.util.CombinatoricsUtils;
 import java.io.IOException;
 import java.util.Random;
 
-import static utils.Library.buildCombinations;
-import static utils.Library.readFromFile;
+import static utils.Library.*;
 
 public class NumberCounter {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, b = 86;
         boolean startFromFile = true;
         int i, j, l;
         int possibleCombinations = (int) CombinatoricsUtils.binomialCoefficient(v, k);
@@ -21,7 +19,7 @@ public class NumberCounter {
         int randomNumber;
         Random random = new Random();
         if (startFromFile) {
-            subsets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
+            subsets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
         } else {
             for (i = 0; i < b; i++) {
                 randomNumber = random.nextInt(possibleCombinations);

@@ -46,7 +46,7 @@ public class BruteForce {
             if (coverage > bestCoverage) {
                 System.out.println(coverage);
                 bestCoverage = coverage;
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 for (i = 0; i < b; i++) {
                     for (j = 0; j < k; j++) {

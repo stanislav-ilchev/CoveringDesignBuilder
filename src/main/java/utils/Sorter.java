@@ -14,15 +14,15 @@ import static utils.TupleBuilder.buildTuples;
 public class Sorter {
 
     public static void main(String[] args) throws IOException {
-        int v = 22;
-        int k = 6;
-        int b = 77;
+        int v = 27;
+        int k = 3;
+        int b = 1297;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int g, i, j, count;
         int[][] kSets = buildTuples(v, k);
-        int[][] subsets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
+        int[][] subsets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
         Map<Integer, int[]> map = new TreeMap<>();
-        FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+        FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
         for (j = 0; j < b; j++) {
             Arrays.sort(subsets[j]);
         }

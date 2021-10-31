@@ -1,14 +1,12 @@
 package utils;
 
-import org.apache.commons.math3.util.CombinatoricsUtils;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import static utils.Library.buildCombinations;
+import static utils.Library.*;
 
 public class HillClimbingSteepestAscent {
 
@@ -26,13 +24,6 @@ public class HillClimbingSteepestAscent {
     }
 
     public static void main(String[] args) throws IOException {
-        int v = 27;
-        int k = 6;
-        int m = 4;
-        int t = 3;
-        int b = 86;
-        int kTuplesCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
-        int mTuplesCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int subsetSize = b - 1;
         boolean readFile = true, removeCombination = true;
         byte g, newNumber, bestNewNumber = 0;
@@ -51,13 +42,13 @@ public class HillClimbingSteepestAscent {
         int row = 0;
         if (!readFile) {
             for (i = 0; i < subsetSize; i++) {
-                rowNumber = random.nextInt(kTuplesCount);
+                rowNumber = random.nextInt(kSetsCount);
                 for (j = 0; j < k; j++) {
                     subsets[i][j] = kTuples[rowNumber][j];
                 }
             }
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {
@@ -79,7 +70,7 @@ public class HillClimbingSteepestAscent {
         if (removeCombination) {
             for (i = 0; i < b; i++) {
                 numberOfMatches = 0;
-                for (j = 0; j < mTuplesCount; j++) {
+                for (j = 0; j < mSetsCount; j++) {
                     for (l = 0; l < b; l++) {
                         if (l == i) {
                             continue;
@@ -123,7 +114,7 @@ public class HillClimbingSteepestAscent {
             if (maxNumberOfMatches > biggestMaxNumberOfMatches) {
                 biggestMaxNumberOfMatches = maxNumberOfMatches;
                 System.out.println(maxNumberOfMatches);
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 fileWriter.write("No " + t + "-match-guaranteed wheel was found!" + "\n" + "Number of matches is " + maxNumberOfMatches + "\n");
                 for (j = 0; j < subsetSize; j++) {
@@ -145,7 +136,7 @@ public class HillClimbingSteepestAscent {
                         }
                         g = (byte) subsets2[rowNumber][positionInRow];
                         subsets2[rowNumber][positionInRow] = newNumber;
-                        for (i = 0; i < mTuplesCount; i++) {
+                        for (i = 0; i < mSetsCount; i++) {
                             for (j = 0; j < subsetSize; j++) {
                                 if (intersection(mTuples[i], subsets2[j]) >= t) {
                                     numberOfMatches++;

@@ -8,7 +8,7 @@ import java.util.*;
 
 import org.apache.commons.math3.util.CombinatoricsUtils;
 
-import static utils.Library.buildCombinations;
+import static utils.Library.*;
 
 public class HillClimberMinOverlap {
 
@@ -26,12 +26,8 @@ public class HillClimberMinOverlap {
     }
 
     public static void main(String[] args) throws IOException {
-        int v = 27;
-        int k = 6;
-        int b = 86;
-        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int subsetSize = b;
-        boolean startFromFile = true;
+        boolean startFromFile = false;
         int zeroIntersection = 0, oneIntersection = 0, twoIntersection = 0, threeIntersection = 0, fourIntersection = 0, fiveIntersection = 0, sixIntersection = 0;
         byte g, randomNumber3;
         int overlappingNumber, initialOverlappingNumber = 0, minOverlappingNumber, intersectionSize;
@@ -51,7 +47,7 @@ public class HillClimberMinOverlap {
                 subsets[i] = sixTuples[random.nextInt(kSetsCount)];
             }
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {
@@ -112,7 +108,7 @@ public class HillClimberMinOverlap {
                 minOverlappingNumber = initialOverlappingNumber;
                 System.out.println(initialOverlappingNumber);
                 System.out.println(zeroIntersection + " " + oneIntersection + " " + twoIntersection + " " + threeIntersection + " " + fourIntersection + " " + fiveIntersection + " " + sixIntersection);
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 for (j = 0; j < subsetSize; j++) {
 //                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);

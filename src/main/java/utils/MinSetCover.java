@@ -61,7 +61,7 @@ public class MinSetCover {
         if (!readFile) {
 
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 count = StringUtils.countMatches(line, ",") + 1;
@@ -108,7 +108,7 @@ public class MinSetCover {
             if (initialOverlappingNumber < minOverlappingNumber) {
                 minOverlappingNumber = initialOverlappingNumber;
 //                System.out.println(initialOverlappingNumber);
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 for (i = 0; i < subsetSize; i++) {
                     for (j = 0; j < subsets2[i].length; j++) {

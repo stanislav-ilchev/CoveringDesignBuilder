@@ -93,7 +93,7 @@ public class FinderFixedSimulatedAnnealing {
 //        for (i = 0; i < subsetSize; i++) {
 //            subsets[i] = combinations[random.nextInt(possibleCombinations)];
 //        }
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
         try {
             line = br.readLine();
             while (line != null) {
@@ -123,7 +123,7 @@ public class FinderFixedSimulatedAnnealing {
                 biggestMaxNumberOfMatches = maxNumberOfMatches;
 //                System.out.println("No " + numbersToMatch + "-match-guaranteed wheel was found!");
                 System.out.println(maxNumberOfMatches);
-                fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 fileWriter.write("No " + numbersToMatch + "-match-guaranteed wheel was found!" + "\n" + "Number of matches is " + maxNumberOfMatches + "\n");
                 for (j = 0; j < subsetSize; j++) {
@@ -140,7 +140,7 @@ public class FinderFixedSimulatedAnnealing {
 //                    subsets[i] = combinations[random.nextInt(possibleCombinations)];
 //                }
                 row = 0;
-                br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+                br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
                 try {
                     line = br.readLine();
                     while (line != null) {
@@ -189,7 +189,7 @@ public class FinderFixedSimulatedAnnealing {
             }
             if (numberOfMatches == 17550) {
                 System.out.println("A " + numbersToMatch + "-match-guaranteed wheel was found!");
-                fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
                 fileWriter.write("A " + numbersToMatch + "-match-guaranteed wheel was found!" + "\n");
                 for (j = 0; j < subsetSize; j++) {

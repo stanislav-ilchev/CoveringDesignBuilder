@@ -1,7 +1,5 @@
 package utils;
 
-import org.apache.commons.math3.util.CombinatoricsUtils;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -9,20 +7,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
 
-import static utils.Library.buildCombinations;
-import static utils.Library.intersection;
+import static utils.Library.*;
 
 public class BruteForceFast {
 
     public static void main(String[] args) throws IOException {
         Date date = java.util.Calendar.getInstance().getTime();
         System.out.println(date);
-        int v = 27, k = 6, m = 4, t = 3, b = 86;
-        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
-        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int i, j, count = 0;
-        int[][] kSets = buildCombinations(v, k);
-        int[][] mSets = buildCombinations(v, m);
         int[] wheel = new int[b];
         byte[][] intersections = new byte[mSetsCount][kSetsCount];
         long start = System.currentTimeMillis();
@@ -38,6 +30,12 @@ public class BruteForceFast {
         System.out.println(date);
         test:
         while (kSetsCount > 0) {
+//            count++;
+//            if (count == 1000000) {
+//                System.out.println(System.currentTimeMillis() - start);
+//                start = System.currentTimeMillis();
+//                count = 0;
+//            }
             for (i = 0; i < b; i++) {
                 wheel[i] = random.nextInt(kSetsCount);
             }
@@ -51,7 +49,7 @@ public class BruteForceFast {
                 continue test;
             }
             System.out.println(b);
-            FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+            FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
             fileWriter.flush();
             for (i = 0; i < b; i++) {
                 for (j = 0; j < k; j++) {

@@ -62,7 +62,7 @@ public class MutualIntersectionChecker {
                 }
             }
         }
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
         if (readFile) {
             try {
                 line = br.readLine();

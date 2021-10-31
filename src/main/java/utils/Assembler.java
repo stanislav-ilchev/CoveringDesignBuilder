@@ -7,30 +7,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-import static utils.Library.buildCombinations;
-import static utils.Library.intersection;
+import static utils.Library.*;
 
 public class Assembler {
 
-    public static boolean isEmpty(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3;
         boolean startFromFile = false;
-        boolean useHeuristics = true;
+        boolean useHeuristics = false;
         int sampleSize = 10000;
-        int[][] kSets = buildCombinations(v, k);
-        int[][] mSets = buildCombinations(v, m);
         int[][] result = new int[1000][k];
-        int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
-        int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         byte[][] intersections = new byte[mSetsCount][kSetsCount];
         int count = (int) CombinatoricsUtils.binomialCoefficient(k, m);
         int nextSize, bestNextSize, randomNumber;
@@ -45,12 +30,12 @@ public class Assembler {
             }
         }
         if (startFromFile) {
-            mSetsCount = 200;
+            mSetsCount = 1292;
             subsets = new int[mSetsCount][];
             for (i = 0; i < mSetsCount; i++) {
                 subsets[i] = new int[m];
             }
-            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {
@@ -65,6 +50,11 @@ public class Assembler {
                     row++;
                 }
             } finally {
+                for (i = 0; i < mSetsCount; i++) {
+                    for (j = 0; j < kSetsCount; j++) {
+                        intersections[i][j] = (byte) intersection(subsets[i], kSets[j]);
+                    }
+                }
                 br.close();
             }
         } else {

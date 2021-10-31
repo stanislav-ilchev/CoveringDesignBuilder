@@ -14,7 +14,7 @@ public class CoverCounter {
         int[][] kSets;
         int[] coverings = new int[mSetsCount];
         if (startFromFile) {
-            kSets = readFromFile("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt");
+            kSets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
         } else {
             kSets = generateRandomSubsets(b, k);
         }

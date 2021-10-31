@@ -42,7 +42,7 @@ public class HillClimberFast {
     static String[] lineArray;
 
     public static void calculateNeighbors() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\neighbors-2.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\neighbors-2.txt"));
         String line;
         int row = 0;
         try {
@@ -60,7 +60,7 @@ public class HillClimberFast {
             br.close();
         }
 
-//        FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\neighbors.txt");
+//        FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\neighbors.txt");
 //        for (i = 0; i < kTuplesCount; i++) {
 //            fileWriter.flush();
 //            fileWriter.append(i + ": ");
@@ -258,7 +258,7 @@ public class HillClimberFast {
                 kset[i] = randomNumber;
             }
         } else {
-            br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+            br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
             try {
                 line = br.readLine();
                 while (line != null) {
@@ -288,7 +288,7 @@ public class HillClimberFast {
                 System.out.println("Uncovered: " + uncovered);
                 if (uncovered <= 2) {
                     System.out.println("A new record was found!");
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     for (i = 0; i < b; i++) {
                         for (j = 0; j < kTuplesCount; j++) {
@@ -315,7 +315,7 @@ public class HillClimberFast {
                         }
                     } else {
                         row = 0;
-                        br = new BufferedReader(new FileReader("C:\\Users\\stanislav.ilchev\\Desktop\\input.txt"));
+                        br = new BufferedReader(new FileReader("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt"));
                         try {
                             line = br.readLine();
                             while (line != null) {

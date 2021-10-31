@@ -80,7 +80,7 @@ public class HillClimberThreeMatch2 {
                 biggestMaxNumberOfThreeMatches = maxNumberOfThreeMatches;
                 if (maxNumberOfMatches == mSetsCount) {
                     System.out.println("A " + t + "-match-guaranteed wheel was found!");
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     fileWriter.write("A " + t + "-match-guaranteed wheel was found!" + "\n");
                     for (i = 0; i < b; i++) {
@@ -95,7 +95,7 @@ public class HillClimberThreeMatch2 {
                     return;
                 } else {
                     System.out.println(mSetsCount - maxNumberOfMatches);
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     for (i = 0; i < b; i++) {
                         for (j = 0; j < k; j++) {

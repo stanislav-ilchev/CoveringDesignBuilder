@@ -11,6 +11,7 @@ public class HillClimber {
     public static void main(String[] args) throws IOException {
         int subsetSize = b;
         boolean startFromFile = true;
+        boolean coverOnlySomeMsets = false;
         int oldNumber, randomNumber3 = 0;
         int numberOfMatches, maxNumberOfMatches = 0, biggestMaxNumberOfMatches = 0;
         int i, j, l, count, randomNumber = 0, randomNumber2 = 0;
@@ -19,17 +20,21 @@ public class HillClimber {
         int[][] wheel2 = new int[subsetSize][k];
         int[][][] used = new int[subsetSize][k][v + 1];
         List<Integer> usedNumbers = new ArrayList<>();
-        Random random = new Random();
         System.out.printf("Searching for a (%s,%s,%s,%s,1) covering in %s blocks. (v,k,m,t,lambda)\n", v, k, m, t, b);
-        if (!startFromFile) {
-            for (i = 0; i < subsetSize; i++) {
-                randomNumber = random.nextInt(kSetsCount);
-                for (j = 0; j < k; j++) {
-                    wheel[i][j] = kSets[randomNumber][j];
-                }
-            }
+        if (coverOnlySomeMsets) {
+            mSetsCount = 5;
+            mSets = readFromFileNLines(mSetsCount);
         } else {
-            wheel = readFromFile();
+            if (!startFromFile) {
+                for (i = 0; i < subsetSize; i++) {
+                    randomNumber = random.nextInt(kSetsCount);
+                    for (j = 0; j < k; j++) {
+                        wheel[i][j] = kSets[randomNumber][j];
+                    }
+                }
+            } else {
+                wheel = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
+            }
         }
         count = 0;
         for (i = 0; i < subsetSize; i++) {
@@ -59,7 +64,7 @@ public class HillClimber {
                 biggestMaxNumberOfMatches = maxNumberOfMatches;
                 if (maxNumberOfMatches == mSetsCount) {
                     System.out.println("A " + t + "-match-guaranteed wheel was found!");
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     fileWriter.write("A " + t + "-match-guaranteed wheel was found!" + "\n");
                     for (i = 0; i < b; i++) {
@@ -71,10 +76,10 @@ public class HillClimber {
                         fileWriter.append("\n");
                     }
                     fileWriter.close();
-//                    return;
+                    return;
                 } else {
                     System.out.println(mSetsCount - maxNumberOfMatches);
-                    FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
+                    FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                     fileWriter.flush();
                     for (i = 0; i < b; i++) {
                         for (j = 0; j < k; j++) {
@@ -124,7 +129,7 @@ public class HillClimber {
             randomNumber = random.nextInt(subsetSize);
             randomNumber2 = random.nextInt(k);
             randomNumber3 = random.nextInt(v);
-            while (contains(wheel2[randomNumber], randomNumber3)) {
+            while (contains(wheel2[randomNumber], randomNumber3) || used[randomNumber][randomNumber2][randomNumber3] == 1) {
                 randomNumber = random.nextInt(subsetSize);
                 randomNumber2 = random.nextInt(k);
                 randomNumber3 = random.nextInt(v);
@@ -141,9 +146,10 @@ public class HillClimber {
                 }
             }
             if (numberOfMatches >= maxNumberOfMatches) {
-//                if (numberOfMatches == maxNumberOfMatches) {
-//                    print(wheel2[randomNumber]);
-//                }
+                if (numberOfMatches == maxNumberOfMatches) {
+                    print(wheel2[randomNumber]);
+//                    writeToFile(wheel2);
+                }
                 count = 0;
                 maxNumberOfMatches = numberOfMatches;
                 for (i = 0; i < subsetSize; i++) {
