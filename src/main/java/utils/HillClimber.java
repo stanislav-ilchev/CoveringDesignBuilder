@@ -10,6 +10,8 @@ public class HillClimber {
 
     public static void main(String[] args) throws IOException {
         int subsetSize = b;
+        int iterationsWithoutImprovement = 0;
+        int threshold = 0;
         boolean startFromFile = true;
         boolean coverOnlySomeMsets = false;
         int oldNumber, randomNumber3 = 0;
@@ -22,7 +24,7 @@ public class HillClimber {
         List<Integer> usedNumbers = new ArrayList<>();
         System.out.printf("Searching for a (%s,%s,%s,%s,1) covering in %s blocks. (v,k,m,t,lambda)\n", v, k, m, t, b);
         if (coverOnlySomeMsets) {
-            mSetsCount = 5;
+            mSetsCount = 1224;
             mSets = readFromFileNLines(mSetsCount);
         } else {
             if (!startFromFile) {
@@ -56,11 +58,19 @@ public class HillClimber {
             }
         }
         while (true) {
+            iterationsWithoutImprovement++;
+            if (iterationsWithoutImprovement == iterations) {
+                threshold = 0;
+//                System.out.println("Threshold: " + threshold);
+                iterationsWithoutImprovement = 0;
+            }
 //            if (count % 1000 == 0) {
 //                System.out.println(count);
 //            }
             count++;
             if (maxNumberOfMatches > biggestMaxNumberOfMatches) {
+                iterationsWithoutImprovement = 0;
+                threshold = 0;
                 biggestMaxNumberOfMatches = maxNumberOfMatches;
                 if (maxNumberOfMatches == mSetsCount) {
                     System.out.println("A " + t + "-match-guaranteed wheel was found!");
@@ -129,6 +139,7 @@ public class HillClimber {
             randomNumber = random.nextInt(subsetSize);
             randomNumber2 = random.nextInt(k);
             randomNumber3 = random.nextInt(v);
+
             while (contains(wheel2[randomNumber], randomNumber3) || used[randomNumber][randomNumber2][randomNumber3] == 1) {
                 randomNumber = random.nextInt(subsetSize);
                 randomNumber2 = random.nextInt(k);
@@ -145,11 +156,11 @@ public class HillClimber {
                     }
                 }
             }
-            if (numberOfMatches >= maxNumberOfMatches) {
-                if (numberOfMatches == maxNumberOfMatches) {
-                    print(wheel2[randomNumber]);
-//                    writeToFile(wheel2);
-                }
+            if (numberOfMatches >= maxNumberOfMatches || numberOfMatches >= biggestMaxNumberOfMatches - threshold) {
+//                if (numberOfMatches == maxNumberOfMatches) {
+//                    print(wheel2[randomNumber]);
+////                    writeToFile(wheel2);
+//                }
                 count = 0;
                 maxNumberOfMatches = numberOfMatches;
                 for (i = 0; i < subsetSize; i++) {

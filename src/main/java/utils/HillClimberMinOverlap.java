@@ -9,6 +9,7 @@ import java.util.*;
 import org.apache.commons.math3.util.CombinatoricsUtils;
 
 import static utils.Library.*;
+import static utils.Library.random;
 
 public class HillClimberMinOverlap {
 
@@ -27,9 +28,10 @@ public class HillClimberMinOverlap {
 
     public static void main(String[] args) throws IOException {
         int subsetSize = b;
-        boolean startFromFile = false;
+        boolean startFromFile = true;
         int zeroIntersection = 0, oneIntersection = 0, twoIntersection = 0, threeIntersection = 0, fourIntersection = 0, fiveIntersection = 0, sixIntersection = 0;
-        byte g, randomNumber3;
+        byte g;
+        int randomNumber3;
         int overlappingNumber, initialOverlappingNumber = 0, minOverlappingNumber, intersectionSize;
         int i, j, l, m, count, randomNumber, randomNumber2;
         long iterations = CombinatoricsUtils.binomialCoefficient(subsetSize * k, 1) * CombinatoricsUtils.binomialCoefficient(v - k, 1);
@@ -110,10 +112,11 @@ public class HillClimberMinOverlap {
                 System.out.println(zeroIntersection + " " + oneIntersection + " " + twoIntersection + " " + threeIntersection + " " + fourIntersection + " " + fiveIntersection + " " + sixIntersection);
                 FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
-                for (j = 0; j < subsetSize; j++) {
-//                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);
-                    fileWriter.append(subsets2[j][0] + "," + subsets2[j][1] + "," + subsets2[j][2] + "," + subsets2[j][3] + "," + subsets2[j][4] + "," + subsets2[j][5] + "\n");
-                }
+                print(subsets2);
+//                for (j = 0; j < subsetSize; j++) {
+////                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);
+//                    fileWriter.append(subsets2[j][0] + "," + subsets2[j][1] + "," + subsets2[j][2] + "," + subsets2[j][3] + "," + subsets2[j][4] + "," + subsets2[j][5] + "\n");
+//                }
                 fileWriter.close();
             }
             zeroIntersection = 0;
@@ -172,11 +175,11 @@ public class HillClimberMinOverlap {
             overlappingNumber = 0;
             randomNumber = random.nextInt(subsetSize);
             randomNumber2 = random.nextInt(k);
-            randomNumber3 = (byte) (random.nextInt(v));
-            while (subsets2[randomNumber][0] == randomNumber3 || subsets2[randomNumber][1] == randomNumber3 || subsets2[randomNumber][2] == randomNumber3 || subsets2[randomNumber][3] == randomNumber3 ||
-                    subsets2[randomNumber][4] == randomNumber3 || subsets2[randomNumber][5] == randomNumber3
-                    || used[randomNumber][randomNumber2][randomNumber3] == 1) {
-                randomNumber3 = (byte) (random.nextInt(v));
+            randomNumber3 = random.nextInt(v);
+            while (contains(subsets2[randomNumber], randomNumber3) || used[randomNumber][randomNumber2][randomNumber3] == 1) {
+                randomNumber = random.nextInt(subsetSize);
+                randomNumber2 = random.nextInt(k);
+                randomNumber3 = random.nextInt(v);
             }
             used[randomNumber][randomNumber2][randomNumber3] = 1;
             g = (byte) subsets2[randomNumber][randomNumber2];

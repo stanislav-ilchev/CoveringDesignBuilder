@@ -12,12 +12,17 @@ import static utils.Library.*;
 public class Assembler {
 
     public static void main(String[] args) throws IOException {
-        boolean startFromFile = false;
+        boolean startFromFile = true;
         boolean useHeuristics = false;
         int sampleSize = 10000;
-        int[][] result = new int[1000][k];
+        int[][] result = new int[10000][k];
         byte[][] intersections = new byte[mSetsCount][kSetsCount];
-        int count = (int) CombinatoricsUtils.binomialCoefficient(k, m);
+        int count;
+        if (k >= m) {
+            count = (int) CombinatoricsUtils.binomialCoefficient(k, m);
+        } else {
+            count = (int) CombinatoricsUtils.binomialCoefficient(m, k);
+        }
         int nextSize, bestNextSize, randomNumber;
         Random random = new Random();
         int a, i, j, b, l, counter = 0, numberOfMatches;
@@ -30,7 +35,7 @@ public class Assembler {
             }
         }
         if (startFromFile) {
-            mSetsCount = 1292;
+            mSetsCount = 1514;
             subsets = new int[mSetsCount][];
             for (i = 0; i < mSetsCount; i++) {
                 subsets[i] = new int[m];
@@ -71,7 +76,7 @@ public class Assembler {
             }
         }
 
-        System.out.println(count);
+//        System.out.println(count);
         while (!isEmpty(subsets)) {
             for (i = 0; i < kSetsCount; i++) {
                 numberOfMatches = 0;
@@ -92,6 +97,7 @@ public class Assembler {
                             subsets[a] = null;
                         }
                     }
+//                    System.out.println(getNonEmptyElementsCount(subsets));
                 }
             }
             if (useHeuristics) {
@@ -117,7 +123,7 @@ public class Assembler {
             } else {
                 count--;
             }
-            System.out.println(count);
+//            System.out.println(count);
             if (count == 0) {
                 break;
             }

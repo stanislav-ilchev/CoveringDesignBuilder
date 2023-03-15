@@ -6,13 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
-import static utils.Library.buildCombinations;
+import static utils.Library.*;
 
 public class BruteForce {
 
     public static void main(String[] args) throws IOException {
-        int v = 27, k = 6, m = 4, t = 3, b = 86;
-        int coverage, bestCoverage = 0;
+        int coverage = 0, bestCoverage = 0;
         int kSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, k);
         int mSetsCount = (int) CombinatoricsUtils.binomialCoefficient(v, m);
         int intersectionSize;
@@ -21,7 +20,7 @@ public class BruteForce {
         int[][] mSets = buildCombinations(v, m);
         int[][] wheel = new int[b][k];
         Random random = new Random();
-        while (true) {
+        while (coverage < mSetsCount) {
             coverage = 0;
             for (i = 0; i < b; i++) {
                 wheel[i] = kSets[random.nextInt(kSetsCount)];

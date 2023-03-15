@@ -43,7 +43,7 @@ public class MatchCounter {
 //        fileWriter.write("The number of " + t + "-tuples covered is " + numberOfCoveredTuples);
 //            fileWriter.close();
 //            System.out.println("The number of " + t + "-tuples covered is " + numberOfCoveredTuples + " out of " + tSetsCount);
-            if (numberOfCoveredTuples > bestNumberOfCoveredTuples) {
+            if (numberOfCoveredTuples > bestNumberOfCoveredTuples && numberOfCoveredTuples > 0) {
                 bestNumberOfCoveredTuples = numberOfCoveredTuples;
                 System.out.println(numberOfCoveredTuples);
                 writeToFile(subsets);

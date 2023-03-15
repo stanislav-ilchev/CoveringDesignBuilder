@@ -9,12 +9,15 @@ import java.util.*;
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficient;
 import static org.apache.commons.math3.util.CombinatoricsUtils.combinationsIterator;
 import static java.lang.System.*;
+import static utils.Library.t;
 
 public class Library {
 
-    public static int v = 27, k = 6, m = 3, t = 3, b = 1292;
+    public static int v = 27, k = 6, m = 4, t = 3, b = 86;
     public static int kSetsCount = (int) binomialCoefficient(v, k);
     public static int mSetsCount = (int) binomialCoefficient(v, m);
+    public static int tSetsCount = (int) binomialCoefficient(v, t);
+    public static int tSetsInMsetsCount = (int) binomialCoefficient(m, t);
     public static int[][] kSets = buildCombinations(v, k);
     public static int[][] mSets = buildCombinations(v, m);
     public static Random random = new Random();
@@ -27,6 +30,30 @@ public class Library {
         while (iterator.hasNext()) {
             subsets[subsetNumber] = iterator.next();
             subsetNumber++;
+            if (subsetNumber % 1000000 == 0) {
+                System.out.println(subsetNumber);
+            }
+        }
+//        rename(subsets, 1);
+        return subsets;
+    }
+
+    public static int[][] buildCombinations(int n, int k, int from, int to) {
+        int kSetsCount = (int) binomialCoefficient(n, k);
+        Iterator<int[]> iterator = combinationsIterator(n, k);
+        int subsetNumber = 0;
+        int counter = 0;
+        int[][] subsets = new int[kSetsCount][k];
+        while (iterator.hasNext()) {
+            if (counter < from || counter > to) {
+                continue;
+            }
+            counter++;
+            subsets[subsetNumber] = iterator.next();
+            subsetNumber++;
+            if (subsetNumber % 1000000 == 0) {
+                System.out.println(subsetNumber);
+            }
         }
 //        rename(subsets, 1);
         return subsets;
@@ -44,6 +71,21 @@ public class Library {
             }
         }
         return intersectionSize;
+    }
+
+    public static int[][] getTsets(int[] array, int t) {
+        int i, count = 0;
+        int[][] tSets = buildCombinations(v, t);
+        int[][] result = new int[tSetsInMsetsCount][];
+
+        for (i = 0; i < tSetsCount; i++) {
+            if (intersection(tSets[i], array) == t) {
+                result[count] = tSets[i];
+                count++;
+            }
+        }
+
+        return result;
     }
 
     public static void print(int[][] array) {
@@ -100,6 +142,18 @@ public class Library {
         return true;
     }
 
+    public static boolean isEmpty(int[][][] array) {
+        int i, j;
+        for (i = 0; i < array.length; i++) {
+            for (j = 0; j < array[0].length; j++) {
+                if (array[i][j] != null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static int getNonEmptyElementsCount(int[][] array) {
         int i, count = 0;
         for (i = 0; i < array.length; i++) {
@@ -116,8 +170,7 @@ public class Library {
         String line;
         String[] lineArray;
         int row = 0;
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        try {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             line = br.readLine();
             while (line != null) {
                 lineArray = line.replaceAll(",", " ").replaceAll("\\s{2,}", " ").trim().split(" ");
@@ -127,8 +180,7 @@ public class Library {
                 line = br.readLine();
                 row++;
             }
-        } finally {
-            br.close();
+        } catch (Exception ignored) {
         }
         return subsets;
     }
@@ -212,8 +264,8 @@ public class Library {
         int i, j;
         FileWriter fileWriter = new FileWriter("C:/Users/Stanislav Ilchev/Desktop/result.txt");
         fileWriter.flush();
-        for (i = 0; i < b; i++) {
-            for (j = 0; j < k; j++) {
+        for (i = 0; i < array.length; i++) {
+            for (j = 0; j < array[0].length; j++) {
                 fileWriter.append(array[i][j] + " ");
             }
             fileWriter.append("\n");
@@ -362,6 +414,32 @@ public class Library {
             index++;
         }
         return mostCommonNumbers;
+    }
+
+    static void shuffle(int[] array) {
+        int index, temp;
+        Random random = new Random();
+        for (int i = array.length - 1; i > 0; i--) {
+            index = random.nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+    }
+
+    static void shuffle(int[][] a) {
+        Random random = new Random();
+
+        for (int i = a.length - 1; i > 0; i--) {
+            for (int j = a[i].length - 1; j > 0; j--) {
+                int m = random.nextInt(i + 1);
+                int n = random.nextInt(j + 1);
+
+                int temp = a[i][j];
+                a[i][j] = a[m][n];
+                a[m][n] = temp;
+            }
+        }
     }
 
 }

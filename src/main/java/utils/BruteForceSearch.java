@@ -48,10 +48,10 @@ public class BruteForceSearch {
                 }
                 continue test;
             }
-            System.out.println("A " + t + "-guaranteed wheel was found with a size = " + b);
+            System.out.println("A " + t + "match-guaranteed wheel was found with a size = " + b);
             FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
             fileWriter.flush();
-            fileWriter.write("A " + t + "-guaranteed wheel was found with a size = " + b + "\n");
+            fileWriter.write("A " + t + "match-guaranteed wheel was found with a size = " + b + "\n");
             for (i = 0; i < b; i++) {
                 for (j = 0; j < k; j++) {
 //                    System.out.print(wheel[i][j] + " ");

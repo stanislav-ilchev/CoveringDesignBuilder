@@ -9,21 +9,21 @@ public class WheelBuilder {
     public static void main(String[] args) throws IOException {
         int i, j, count = 0;
         int[][] wheel = new int[b][k];
-        while (!isEmpty(kSets)) {
-            for (i = 0; i < kSetsCount; i++) {
-                if (kSets[i] == null) {
+        while (!isEmpty(mSets)) {
+            for (i = 0; i < mSetsCount; i++) {
+                if (mSets[i] == null) {
                     continue;
                 }
                 for (j = 0; j < k; j++) {
-                    wheel[count][j] = kSets[i][j];
+                    wheel[count][j] = mSets[i][j];
                 }
                 for (j = 0; j < k; j++) {
                     System.out.print(wheel[count][j] + " ");
                 }
                 System.out.println();
-                for (i = 0; i < kSetsCount; i++) {
-                    if (kSets[i] != null && intersection(wheel[count], kSets[i]) >= t) {
-                        kSets[i] = null;
+                for (j = 0; j < mSetsCount; j++) {
+                    if (mSets[j] != null && intersection(wheel[count], mSets[j]) >= t) {
+                        mSets[j] = null;
                     }
                 }
                 count++;

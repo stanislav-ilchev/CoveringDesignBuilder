@@ -4,15 +4,34 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import static utils.Library.*;
+import static utils.MultiThread.intersections;
 
 public class BruteForceFastMultiThread implements Runnable {
 
-    byte[][] intersections;
-    int[] wheel = new int[b];
     int i, j;
+//    boolean[][] intersections;
+    int[][] kSets = new int[kSetsCount][];
+    int[] wheel = new int[b];
 
-    public BruteForceFastMultiThread(byte[][] intersections) {
-        this.intersections = intersections;
+
+    public BruteForceFastMultiThread(boolean[][] intersections, int[][] kSets) {
+//        for (i = 0; i < mSetsCount; i++) {
+//            this.intersections[i] = new boolean[kSetsCount];
+//        }
+//        for (i = 0; i < mSetsCount; i++) {
+//            for (j = 0; j < kSetsCount; j++) {
+//                this.intersections[i][j] = intersections[i][j];
+//            }
+//        }
+        for (i = 0; i < kSetsCount; i++) {
+            this.kSets[i] = new int[k];
+        }
+//        this.intersections = intersections;
+        for (i = 0; i < kSetsCount; i++) {
+            for (j = 0; j < k; j++) {
+                this.kSets[i][j] = kSets[i][j];
+            }
+        }
     }
 
     public void run() {
@@ -25,7 +44,7 @@ public class BruteForceFastMultiThread implements Runnable {
             test2:
             for (i = 0; i < mSetsCount; i++) {
                 for (j = 0; j < b; j++) {
-                    if (intersections[i][wheel[j]] >= t) {
+                    if (intersections[i][wheel[j]]) {
                         continue test2;
                     }
                 }
@@ -62,8 +81,8 @@ public class BruteForceFastMultiThread implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            b--;
-//            return;
+//            b--;
+            return;
         }
     }
 }
