@@ -2,6 +2,8 @@ package utils;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
 
@@ -17,6 +19,8 @@ public class BruteForceFast {
         boolean[][] intersections = new boolean[mSetsCount][kSetsCount];
         long start = System.currentTimeMillis();
 
+        Collections.shuffle(Arrays.asList(mSets));
+        Collections.shuffle(Arrays.asList(kSets));
         Random random = new Random();
         for (i = 0; i < mSetsCount; i++) {
             for (j = 0; j < kSetsCount; j++) {
@@ -29,12 +33,12 @@ public class BruteForceFast {
         System.out.println(date);
         test:
         while (kSetsCount > 0) {
-//            count++;
-//            if (count == 1000000) {
-//                System.out.println(System.currentTimeMillis() - start);
-//                start = System.currentTimeMillis();
-//                count = 0;
-//            }
+            count++;
+            if (count == 1000000) {
+                System.out.println(System.currentTimeMillis() - start);
+                start = System.currentTimeMillis();
+                count = 0;
+            }
             for (i = 0; i < b; i++) {
                 wheel[i] = random.nextInt(kSetsCount);
             }

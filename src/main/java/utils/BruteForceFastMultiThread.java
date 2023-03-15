@@ -51,6 +51,7 @@ public class BruteForceFastMultiThread implements Runnable {
                 continue test;
             }
             System.out.println(b);
+            System.out.println(java.util.Calendar.getInstance().getTime());
             FileWriter fileWriter = null;
             try {
                 fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");

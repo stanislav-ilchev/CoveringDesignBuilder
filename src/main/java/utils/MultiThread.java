@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 import static utils.Library.*;
@@ -15,6 +17,10 @@ class MultiThread {
         intersections = new boolean[mSetsCount][kSetsCount];
         int[][] kSets = buildCombinations(v, k);
         int[][] mSets = buildCombinations(v, m);
+
+        Collections.shuffle(Arrays.asList(mSets));
+        Collections.shuffle(Arrays.asList(kSets));
+
         for (i = 0; i < mSetsCount; i++) {
             for (j = 0; j < kSetsCount; j++) {
                 if (intersection(mSets[i], kSets[j]) >= t) {
