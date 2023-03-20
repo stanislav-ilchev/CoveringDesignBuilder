@@ -55,6 +55,7 @@ public class BruteForceFast {
 //        TornadoExecutionResult executionResult = executionPlan.execute();
 //    }
 
+
     public static void main(String[] args) {
         Date date = java.util.Calendar.getInstance().getTime();
         System.out.println(date);
