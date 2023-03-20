@@ -30,7 +30,7 @@ class MultiThread {
         }
         date = java.util.Calendar.getInstance().getTime();
         System.out.println(date);
-        for (i = 0; i <= 11; i++) {
+        for (i = 1; i <= 12; i++) {
             Thread object = new Thread(new BruteForceFastMultiThread(intersections, kSets));
             object.start();
         }
