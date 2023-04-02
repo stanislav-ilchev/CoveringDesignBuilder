@@ -16,7 +16,7 @@ public class MatchCounter {
         String matchingTuples;
         while (true) {
             numberOfCoveredTuples = 0;
-            int[][] subsets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\cover\\cover.res");
+            int[][] subsets = readFromFile("C:\\Users\\Stanislav Ilchev\\Desktop\\input.txt");
             for (i = 0; i < tSetsCount; i++) {
                 numberOfMatches = 0;
                 matchingTuples = "";

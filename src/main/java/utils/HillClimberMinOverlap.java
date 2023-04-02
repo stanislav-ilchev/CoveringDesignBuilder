@@ -109,14 +109,14 @@ public class HillClimberMinOverlap {
             if (initialOverlappingNumber < minOverlappingNumber) {
                 minOverlappingNumber = initialOverlappingNumber;
                 System.out.println(initialOverlappingNumber);
-                System.out.println(zeroIntersection + " " + oneIntersection + " " + twoIntersection + " " + threeIntersection + " " + fourIntersection + " " + fiveIntersection + " " + sixIntersection);
+//                System.out.println(zeroIntersection + " " + oneIntersection + " " + twoIntersection + " " + threeIntersection + " " + fourIntersection + " " + fiveIntersection + " " + sixIntersection);
                 FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
                 fileWriter.flush();
-                print(subsets2);
-//                for (j = 0; j < subsetSize; j++) {
-////                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);
-//                    fileWriter.append(subsets2[j][0] + "," + subsets2[j][1] + "," + subsets2[j][2] + "," + subsets2[j][3] + "," + subsets2[j][4] + "," + subsets2[j][5] + "\n");
-//                }
+//                print(subsets2);
+                for (j = 0; j < subsetSize; j++) {
+//                        System.out.println(subsets[j][0] + "," + subsets[j][1] + "," + subsets[j][2] + "," + subsets[j][3] + "," + subsets[j][4] + "," + subsets[j][5]);
+                    fileWriter.append(subsets2[j][0] + "," + subsets2[j][1] + "," + subsets2[j][2] + "," + subsets2[j][3] + "," + subsets2[j][4] + "," + subsets2[j][5] + "\n");
+                }
                 fileWriter.close();
             }
             zeroIntersection = 0;

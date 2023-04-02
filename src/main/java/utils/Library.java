@@ -6,10 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static java.lang.System.out;
 import static org.apache.commons.math3.util.CombinatoricsUtils.binomialCoefficient;
 import static org.apache.commons.math3.util.CombinatoricsUtils.combinationsIterator;
-import static java.lang.System.*;
-import static utils.Library.t;
+
 
 public class Library {
 
@@ -211,9 +211,9 @@ public class Library {
         return subsets;
     }
 
-    public static int[][] readFromFileNLines(int numLines) throws IOException {
+    public static int[][] readFromFileNLines(int numLines, int k) throws IOException {
         int i;
-        int[][] subsets = new int[numLines][m];
+        int[][] subsets = new int[numLines][k];
         String line;
         String[] lineArray;
         int row = 0;
@@ -222,7 +222,7 @@ public class Library {
             line = br.readLine();
             while (line != null) {
                 lineArray = line.replaceAll(",", " ").replaceAll("\\s{2,}", " ").trim().split(" ");
-                for (i = 0; i < m; i++) {
+                for (i = 0; i < k; i++) {
                     subsets[row][i] = Integer.parseInt(lineArray[i]);
                 }
                 line = br.readLine();
@@ -441,5 +441,4 @@ public class Library {
             }
         }
     }
-
 }

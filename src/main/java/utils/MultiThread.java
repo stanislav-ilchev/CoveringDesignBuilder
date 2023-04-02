@@ -22,6 +22,13 @@ class MultiThread {
         Collections.shuffle(Arrays.asList(kSets));
 
         for (i = 0; i < mSetsCount; i++) {
+            Collections.shuffle(Arrays.asList(mSets[i]));
+        }
+        for (i = 0; i < kSetsCount; i++) {
+            Collections.shuffle(Arrays.asList(kSets[i]));
+        }
+
+        for (i = 0; i < mSetsCount; i++) {
             for (j = 0; j < kSetsCount; j++) {
                 if (intersection(mSets[i], kSets[j]) >= t) {
                     intersections[i][j] = true;

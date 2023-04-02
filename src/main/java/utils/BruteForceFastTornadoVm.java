@@ -1,5 +1,10 @@
 package utils;
 
+import uk.ac.manchester.tornado.api.TaskGraph;
+import uk.ac.manchester.tornado.api.TornadoExecutionPlan;
+import uk.ac.manchester.tornado.api.annotations.Parallel;
+import uk.ac.manchester.tornado.api.enums.DataTransferMode;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -8,8 +13,9 @@ import java.util.Date;
 import java.util.Random;
 
 import static utils.Library.*;
+import static utils.Library.random;
 
-public class BruteForceFastTornado {
+public class BruteForceFastTornadoVm {
 
 //    public void run() {
 //        String[] args = new String[1];
@@ -36,11 +42,11 @@ public class BruteForceFastTornado {
 //                .execute();
 //    }
 
-//    public void run() {
+//    public static void run() {
 //        String[] args = new String[1];
 //        TaskGraph taskGraph = new TaskGraph("s0")
 //                .transferToDevice(DataTransferMode.FIRST_EXECUTION) // Transfer data from host to device only in the first execution
-//                .task("t0", BruteForceFast::main, args)              // Each task points to an existing Java method
+//                .task("t0", BruteForceFastTornadoVm::bfs, args)              // Each task points to an existing Java method
 //                .transferToHost(DataTransferMode.EVERY_EXECUTION);     // Transfer data from device to host
 //        // Create an immutable task-graph
 //        ImmutableTaskGraph immutableTaskGraph = taskGraph.snapshot();
@@ -51,6 +57,41 @@ public class BruteForceFastTornado {
 //        // Execute the execution plan
 //        TornadoExecutionResult executionResult = executionPlan.execute();
 //    }
+
+    public static int[] initializeWheel(int[] wheel) {
+        for (@Parallel int I = 0; I < b; I++) {
+            wheel[I] = random.nextInt(kSetsCount);
+        }
+        return wheel;
+    }
+
+    public static void checkWheel(int[] wheel, boolean[][] intersections) {
+        test2:
+        for (@Parallel int I = 0; I < mSetsCount; I++) {
+            for (@Parallel int J = 0; J < b; J++) {
+                if (intersections[I][wheel[J]]) {
+                    continue test2;
+                }
+            }
+            return;
+        }
+        System.out.println(b);
+        try {
+            FileWriter fileWriter = new FileWriter("C:\\Users\\Stanislav Ilchev\\Desktop\\result.txt");
+            fileWriter.flush();
+            for (int i = 0; i < b; i++) {
+                for (int j = 0; j < k; j++) {
+//                    System.out.print(kSets[wheel[i]][j] + " ");
+                    fileWriter.append(kSets[wheel[i]][j] + " ");
+                }
+//                System.out.println();
+                fileWriter.append("\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -63,54 +104,30 @@ public class BruteForceFastTornado {
 
         Collections.shuffle(Arrays.asList(mSets));
         Collections.shuffle(Arrays.asList(kSets));
-        Random random = new Random();
-        for (int I = 0; I < mSetsCount; I++) {
-            for (int J = 0; J < kSetsCount; J++) {
-                if (intersection(mSets[I], kSets[J]) >= t) {
-                    intersections[I][J] = true;
+        for (i = 0; i < mSetsCount; i++) {
+            for (j = 0; j < kSetsCount; j++) {
+                if (intersection(mSets[i], kSets[j]) >= t) {
+                    intersections[i][j] = true;
                 }
             }
         }
-        date = java.util.Calendar.getInstance().getTime();
-        System.out.println(date);
-        test:
-        while (kSetsCount > 0) {
+        TaskGraph taskGraph;
+        while (true) {
             count++;
             if (count == 1000000) {
                 System.out.println(System.currentTimeMillis() - start);
                 start = System.currentTimeMillis();
                 count = 0;
             }
-            for (int I = 0; I < b; I++) {
-                wheel[I] = random.nextInt(kSetsCount);
-            }
-            test2:
-            for (int I = 0; I < mSetsCount; I++) {
-                for (int J = 0; J < b; J++) {
-                    if (intersections[I][wheel[J]]) {
-                        continue test2;
-                    }
-                }
-                continue test;
-            }
-            System.out.println(b);
-            try {
-                FileWriter fileWriter = new FileWriter("C:\\Users\\stanislav.ilchev\\Desktop\\result.txt");
-                fileWriter.flush();
-                for (i = 0; i < b; i++) {
-                    for (j = 0; j < k; j++) {
-//                    System.out.print(kSets[wheel[i]][j] + " ");
-                        fileWriter.append(kSets[wheel[i]][j] + " ");
-                    }
-//                System.out.println();
-                    fileWriter.append("\n");
-                }
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-//            b--;
+
+            taskGraph = new TaskGraph("s0")
+                    .transferToDevice(DataTransferMode.EVERY_EXECUTION, wheel, intersections)
+                    .task("t0", BruteForceFastTornadoVm::initializeWheel, wheel)
+                    .task("t1", BruteForceFastTornadoVm::checkWheel, wheel, intersections)
+                    .transferToHost(DataTransferMode.EVERY_EXECUTION, wheel, intersections);
+
+            TornadoExecutionPlan executionPlan = new TornadoExecutionPlan(taskGraph.snapshot());
+            executionPlan.execute();
         }
     }
 }

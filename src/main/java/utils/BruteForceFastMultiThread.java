@@ -1,7 +1,10 @@
 package utils;
 
+import it.unimi.dsi.util.XoRoShiRo128PlusRandom;
+
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static utils.Library.*;
 import static utils.MultiThread.intersections;
@@ -35,7 +38,7 @@ public class BruteForceFastMultiThread implements Runnable {
     }
 
     public void run() {
-
+        XoRoShiRo128PlusRandom random = new XoRoShiRo128PlusRandom();
         test:
         while (true) {
             for (i = 0; i < b; i++) {

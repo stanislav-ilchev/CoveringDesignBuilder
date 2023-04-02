@@ -11,10 +11,10 @@ import static utils.Library.*;
 public class BruteForceOnlySomeMSets {
 
     public static void main(String[] args) throws IOException {
-        int mSetsCount = 10;
+        int mSetsCount = 612;
         int intersectionSize;
         int i, j, n, l, count = 0, randomNumber = 0;
-        int[][] mSets = readFromFileNLines(mSetsCount);
+        int[][] mSets = readFromFileNLines(mSetsCount, m);
         int[][] wheel = new int[b][k];
         List<Integer> usedNumbers = new ArrayList<>();
         long start = System.currentTimeMillis();

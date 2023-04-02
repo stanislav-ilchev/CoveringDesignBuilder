@@ -1,6 +1,8 @@
 package utils;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static utils.Library.*;
 
@@ -9,6 +11,7 @@ public class WheelBuilder {
     public static void main(String[] args) throws IOException {
         int i, j, count = 0;
         int[][] wheel = new int[b][k];
+//        Collections.shuffle(Arrays.asList(mSets));
         while (!isEmpty(mSets)) {
             for (i = 0; i < mSetsCount; i++) {
                 if (mSets[i] == null) {

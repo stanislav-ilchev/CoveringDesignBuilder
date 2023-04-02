@@ -26,7 +26,7 @@ public class HillClimberAcceptWorse {
         System.out.printf("Searching for a (%s,%s,%s,%s,1) covering in %s blocks. (v,k,m,t,lambda)\n", v, k, m, t, b);
         if (coverOnlySomeMsets) {
             mSetsCount = 5;
-            mSets = readFromFileNLines(mSetsCount);
+            mSets = readFromFileNLines(mSetsCount, m);
         } else {
             if (!startFromFile) {
                 for (i = 0; i < subsetSize; i++) {

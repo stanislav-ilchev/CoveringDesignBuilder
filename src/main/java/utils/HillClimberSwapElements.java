@@ -2,25 +2,23 @@ package utils;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Library.*;
 
-public class HillClimber {
+public class HillClimberSwapElements {
 
     public static void main(String[] args) throws IOException {
-        int subsetSize = b;
+        int subsetSize = b, row1, column1, number1, row2, column2, number2;
         int iterationsWithoutImprovement = 0;
-        int threshold = 0;
-        boolean startFromFile = false;
+        boolean startFromFile = true;
         boolean coverOnlySomeMsets = false;
-        int oldNumber, randomNumber3 = 0;
         int numberOfMatches, maxNumberOfMatches = 0, biggestMaxNumberOfMatches = 0;
-        int i, j, l, count, randomNumber = 0, randomNumber2 = 0;
-        long iterations = subsetSize * k * (v - k);
+        int i, j, l, count, randomNumber;
+        long iterations = (long) b * k * b * k * 10;
         int[][] wheel = new int[b][k];
         int[][] wheel2 = new int[subsetSize][k];
-        int[][][] used = new int[subsetSize][k][v + 1];
         List<Integer> usedNumbers = new ArrayList<>();
         System.out.printf("Searching for a (%s,%s,%s,%s,1) covering in %s blocks. (v,k,m,t,lambda)\n", v, k, m, t, b);
         if (coverOnlySomeMsets) {
@@ -49,6 +47,16 @@ public class HillClimber {
             }
             usedNumbers.add(j);
         }
+//        for (i = 0; i < 100; i++) {
+//            row1 = random.nextInt(b);
+//            column1 = random.nextInt(k);
+//            number1 = wheel2[row1][column1];
+//            row2 = random.nextInt(b);
+//            column2 = random.nextInt(k);
+//            number2 = wheel2[row2][column2];
+//            wheel2[row1][column1] = number2;
+//            wheel2[row2][column2] = number1;
+//        }
         for (i = 0; i < mSetsCount; i++) {
             for (j = 0; j < subsetSize; j++) {
                 if (intersection(mSets[i], wheel2[j]) >= t) {
@@ -60,7 +68,6 @@ public class HillClimber {
         while (true) {
             iterationsWithoutImprovement++;
             if (iterationsWithoutImprovement == iterations) {
-                threshold = 0;
 //                System.out.println("Threshold: " + threshold);
                 iterationsWithoutImprovement = 0;
             }
@@ -70,7 +77,6 @@ public class HillClimber {
             count++;
             if (maxNumberOfMatches > biggestMaxNumberOfMatches) {
                 iterationsWithoutImprovement = 0;
-                threshold = 0;
                 biggestMaxNumberOfMatches = maxNumberOfMatches;
                 if (maxNumberOfMatches == mSetsCount) {
                     System.out.println("A " + t + "-match-guaranteed wheel was found!");
@@ -103,13 +109,6 @@ public class HillClimber {
                 }
             }
             if (count == iterations) {
-                for (i = 0; i < subsetSize; i++) {
-                    for (j = 0; j < k; j++) {
-                        for (l = 0; l < v + 1; l++) {
-                            used[i][j][l] = 0;
-                        }
-                    }
-                }
                 System.out.println("Restarting...");
                 if (!startFromFile) {
                     for (i = 0; i < subsetSize; i++) {
@@ -136,18 +135,14 @@ public class HillClimber {
                 }
             }
             numberOfMatches = 0;
-            randomNumber = random.nextInt(subsetSize);
-            randomNumber2 = random.nextInt(k);
-            randomNumber3 = random.nextInt(v);
-
-            while (contains(wheel2[randomNumber], randomNumber3) || used[randomNumber][randomNumber2][randomNumber3] == 1) {
-                randomNumber = random.nextInt(subsetSize);
-                randomNumber2 = random.nextInt(k);
-                randomNumber3 = random.nextInt(v);
-            }
-            used[randomNumber][randomNumber2][randomNumber3] = 1;
-            oldNumber = (byte) wheel2[randomNumber][randomNumber2];
-            wheel2[randomNumber][randomNumber2] = randomNumber3;
+            row1 = random.nextInt(b);
+            column1 = random.nextInt(k);
+            number1 = wheel2[row1][column1];
+            row2 = random.nextInt(b);
+            column2 = random.nextInt(k);
+            number2 = wheel2[row2][column2];
+            wheel2[row1][column1] = number2;
+            wheel2[row2][column2] = number1;
             for (i = 0; i < mSetsCount; i++) {
                 for (j = 0; j < subsetSize; j++) {
                     if (intersection(mSets[i], wheel2[j]) >= t) {
@@ -156,22 +151,12 @@ public class HillClimber {
                     }
                 }
             }
-            if (numberOfMatches >= maxNumberOfMatches || numberOfMatches >= biggestMaxNumberOfMatches - threshold) {
-//                if (numberOfMatches == maxNumberOfMatches) {
-//                    print(wheel2[randomNumber]);
-////                    writeToFile(wheel2);
-//                }
+            if (numberOfMatches >= maxNumberOfMatches) {
                 count = 0;
                 maxNumberOfMatches = numberOfMatches;
-                for (i = 0; i < subsetSize; i++) {
-                    for (j = 0; j < k; j++) {
-                        for (l = 0; l < v + 1; l++) {
-                            used[i][j][l] = 0;
-                        }
-                    }
-                }
             } else {
-                wheel2[randomNumber][randomNumber2] = oldNumber;
+                wheel2[row1][column1] = number1;
+                wheel2[row2][column2] = number2;
             }
         }
     }
